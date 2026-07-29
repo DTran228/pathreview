@@ -21,3 +21,22 @@ This issue is a Tier 1 bug with a clearly identified function and failing unit t
 **Setup confirmation:** [x] App runs locally at localhost:5173
 
 **Cohort ledger:** [ ] Issue added to cohort ledger
+
+## Week 8 — Reproduction & solution planning
+
+**Reproduction commit link:** Pending this commit (will be replaced with its permanent link).
+
+**Reproduction summary:** I reproduced issue #149 with a 1,000-character plain-text input that
+contains no Markdown headings. `StructuralChunker.chunk()` returned `0` chunks, even though the
+input is non-empty; `_extract_sections()` only collects lines after it has seen a heading, so it
+silently drops every line in this document type.
+
+**PLAN.md link:** [PLAN.md](PLAN.md)
+
+**Walkthrough video (recommended):** Not recorded.
+
+**Blockers or open questions:** The repository's `.venv` points to a Python executable that is
+no longer installed, so the standard `pytest` command cannot start yet. This is a local setup
+blocker separate from #149. The reproduction above was executed against the chunker's current
+logic with a minimal local tokenizer stub; after repairing the environment, I will run the
+existing focused unit test and the complete structural-chunker suite before implementing the fix.
