@@ -35,8 +35,7 @@ silently drops every line in this document type.
 
 **Walkthrough video (recommended):** Not recorded.
 
-**Blockers or open questions:** The repository's `.venv` points to a Python executable that is
-no longer installed, so the standard `pytest` command cannot start yet. This is a local setup
-blocker separate from #149. The reproduction above was executed against the chunker's current
-logic with a minimal local tokenizer stub; after repairing the environment, I will run the
-existing focused unit test and the complete structural-chunker suite before implementing the fix.
+**Blockers or open questions:** The focused test
+`test_document_with_no_headings` now runs and fails as expected: a non-empty
+plain-text document without Markdown headings produces `0` chunks. This confirms
+the reproduction for issue #149. No implementation blocker remains.
