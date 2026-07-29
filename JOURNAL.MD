@@ -24,7 +24,7 @@ This issue is a Tier 1 bug with a clearly identified function and failing unit t
 
 ## Week 8 — Reproduction & solution planning
 
-**Reproduction commit link:** Pending this commit (will be replaced with its permanent link).
+**Reproduction commit link:** [d5a98ef — document issue 149 reproduction](https://github.com/DTran228/pathreview/commit/d5a98ef985cd0a16a07cec8312df6e4fd5cfab5b)
 
 **Reproduction summary:** I reproduced issue #149 with a 1,000-character plain-text input that
 contains no Markdown headings. `StructuralChunker.chunk()` returned `0` chunks, even though the
