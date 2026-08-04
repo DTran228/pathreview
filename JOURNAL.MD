@@ -39,3 +39,23 @@ silently drops every line in this document type.
 `test_document_with_no_headings` now runs and fails as expected: a non-empty
 plain-text document without Markdown headings produces `0` chunks. This confirms
 the reproduction for issue #149. No implementation blocker remains.
+
+## Week 9 — Solution building & PR submission
+
+### Check-in 1 (mid-week)
+
+**Current progress:** Completed the planned level-zero fallback in
+`StructuralChunker.chunk()` and strengthened `tests/unit/test_structural_chunker.py`.
+Plain-text documents without headings now produce chunks that retain source metadata,
+an empty `heading_path`, and `heading_level` 0; large plain-text documents still use
+semantic sub-chunking. The focused structural-chunker suite passes 16/16 tests.
+
+**Next steps:** Run final project checks in a Python 3.11 environment, open a draft PR,
+request peer or mentor feedback, address applicable feedback, then complete Check-in 2
+with the submitted PR link.
+
+**Blockers:** The project `.venv` still points to a removed Python 3.11 executable, so
+the repository's standard `make` commands cannot run locally. I verified the changed
+module in an isolated temporary Python 3.12 environment: its focused tests, Ruff, and
+Black pass. The full unit suite currently reports failures in unrelated modules outside
+this issue; none are in `tests/unit/test_structural_chunker.py`.
