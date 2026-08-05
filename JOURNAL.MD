@@ -59,3 +59,30 @@ the repository's standard `make` commands cannot run locally. I verified the cha
 module in an isolated temporary Python 3.12 environment: its focused tests, Ruff, and
 Black pass. The full unit suite currently reports failures in unrelated modules outside
 this issue; none are in `tests/unit/test_structural_chunker.py`.
+
+---
+
+### Check-in 2 (end of week)
+
+**PR link:** [#254 — preserve documents without headings](https://github.com/ascherj/pathreview/pull/254)
+
+**Branch:** `fix/149-handle-documents-without-headings`
+
+**What you built:** `StructuralChunker.chunk()` now creates a level-zero fallback
+section when non-empty input has no Markdown headings, preventing valid plain-text
+documents from being silently excluded. The fallback preserves source metadata and
+continues through the existing semantic chunker for large documents.
+
+**Tests added or updated:** Updated `tests/unit/test_structural_chunker.py` to assert
+the exact single-chunk fallback contract, including text and metadata. Added a long
+plain-text regression test that verifies multiple subchunks keep the level-zero
+metadata. The focused structural-chunker suite passes 16/16 tests.
+
+**Self-review confirmation:** [ ] make check passes  [ ] make test-unit passes
+
+The repository's `.venv` cannot start because its Python 3.11 executable was removed.
+In an isolated environment, Ruff and Black pass for the changed files and the focused
+suite passes. The full unit suite reported 52 failures in files outside this issue; this
+change neither modifies nor adds failures to those areas.
+
+**Draft PR feedback received from:** none
