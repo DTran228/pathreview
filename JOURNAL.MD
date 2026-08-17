@@ -86,3 +86,65 @@ suite passes. The full unit suite reported 52 failures in files outside this iss
 change neither modifies nor adds failures to those areas.
 
 **Draft PR feedback received from:** none
+
+## Week 10 — Iteration & reflection
+
+### Reviewer feedback
+
+**Feedback received:** [ ] Yes  [x] No — still awaiting review
+
+**Summary of feedback:** No reviewer or maintainer feedback arrived. The Summer 2026
+course instructions note that reviewer feedback is not available for this cohort.
+
+**How you responded:** No code changes were needed after opening the PR. I left the PR
+open and ready for review, with the implementation, focused test results, and known
+project-wide check failures documented in the PR description and Week 9 check-in.
+
+---
+
+### Reflection
+
+**What was harder than you expected?**
+
+The difficult part was not the fallback itself; it was proving the exact boundary of
+the bug before changing code. The existing no-heading test showed a failure, but I had
+to trace why `_extract_sections()` returned no sections and make sure a fallback would
+not bypass the 800-token protection. The local Python environment also pointed to a
+removed Python 3.11 executable, which made the usual project commands unavailable and
+forced me to separate environment problems from the issue I was fixing.
+
+**What did you learn about working in a large codebase?**
+
+I learned to follow data through one narrow path instead of trying to understand the
+whole application at once. For this issue, the useful path was README input, structural
+section extraction, chunk metadata, and tests. Reading the caller and the semantic
+chunker before editing helped keep the change small: plain-text documents now get a
+level-zero section, while headed Markdown keeps its existing hierarchy and large inputs
+keep using semantic sub-chunking. In another person's codebase, preserving established
+behavior and documenting assumptions matters as much as making the new case work.
+
+**How did AI tools help — and where did they fall short?**
+
+AI tools helped me map the codebase quickly, compare the implementation with the
+failing test, and turn the observation into a concrete plan and regression tests. They
+were especially useful for explaining why an empty list was produced and for checking
+which metadata the fallback needed to preserve. They could not replace judgment about
+scope or verification: I still needed to read the surrounding code, choose a minimal
+fallback instead of rewriting the parser, and report the broken virtual environment and
+unrelated full-suite failures honestly.
+
+**What would you do differently if you started over?**
+
+I would verify the Python version and run the baseline checks before writing the Week 8
+plan. Doing that earlier would have surfaced the broken virtual environment immediately
+and made the Week 9 verification smoother. I would also open the draft PR as soon as
+the reproduction was committed, so the PR description and request for feedback could
+evolve alongside the implementation rather than being finalized at the end.
+
+**What are you most proud of from this module?**
+
+I am most proud of turning a small but silent data-loss bug into a precise, tested
+behavior. The final tests cover both the normal no-heading case and the long-document
+case, so the fix protects valid plain text without weakening the existing chunk-size
+behavior. More importantly, I can explain the root cause, the constraints of the fix,
+and the evidence that it works.
